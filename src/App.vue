@@ -1,28 +1,48 @@
-// 代码实现
 <template>
     <div>
-        <!-- 动态绑定class
-  				v-bind:class = '{类名: 布尔值}'
-   				:class="{类名: 布尔值}"
-     		 	使用场景: vue变量控制标签是否应该有类名-->
-
-        <p v-bind:class="{'active': activeFlag}">我是p标签</p>
-        <button @click="activeFlag = !activeFlag">
-            Click me
-        </button>
-        <!-- v-bind:class指令可以与普通的class特性共存 -->
-        <div class="box" :class="{'active': activeFlag}">
-          我是div
-        </div>
+        <ul>
+            <li :class="{'active': index === currentIndex}" v-for="(item,index) in navs" :key="index" 												@click="changeFn(index)">大学起点</li>
+        </ul>
     </div>
-</template>
+</template> 
 
 <script>
 export default {
- data() {
-  return {
-    activeFlag: true
-  };
-},
+
+  data() {
+        return {
+            navs: ['大学起点', '高中起点', '初中起点', '小学起点'],
+            currentIndex: 0
+        };
+    },
+    methods: {
+        changeFn (index) {
+            this.currentIndex = index;
+        }
+    }
 }
 </script>
+
+
+<style>
+  ul {
+    list-style: none;
+    border-radius: 10px;
+    width: 400px;
+    overflow: hidden;
+    padding: 0;
+  }
+  ul li {
+    float: left;
+    width: 100px;
+    height: 40px;
+    background-color: #ccc;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+  li.active {
+    background-color: blue;
+  }
+</style>
