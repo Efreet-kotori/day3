@@ -1,47 +1,28 @@
+// 代码实现
 <template>
-  <div>
-    <ul>
-      <li v-for="(val, index) in arr" :key="index">
-        {{ val }}
-      </li>
-    </ul>
-    <button @click="revBtn">数组翻转</button>
-    <button @click="sliceBtn">截取前3个</button>
-    <button @click="updateBtn">更新第一个元素值</button>
-  </div>
+    <div>
+        <!-- 动态绑定class
+  				v-bind:class = '{类名: 布尔值}'
+   				:class="{类名: 布尔值}"
+     		 	使用场景: vue变量控制标签是否应该有类名-->
+
+        <p v-bind:class="{'active': activeFlag}">我是p标签</p>
+        <button @click="activeFlag = !activeFlag">
+            Click me
+        </button>
+        <!-- v-bind:class指令可以与普通的class特性共存 -->
+        <div class="box" :class="{'active': activeFlag}">
+          我是div
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return {
-      arr: [5, 3, 9, 2, 1]
-    }
-  },
-  methods: {
-    revBtn(){
-      // 1. 数组翻转可以让v-for更新
-      this.arr.reverse()
-    },
-    sliceBtn(){
-      // 2. 数组slice方法不会造成v-for更新
-      // slice不会改变原始数组
-      // this.arr.slice(0, 3)
-
-      // 解决v-for更新 - 覆盖原始数组
-      let newArr = this.arr.slice(0, 3)
-      this.arr = newArr
-    },
-    updateBtn(){
-      // 3. 更新某个值的时候, v-for是监测不到的
-      // this.arr[0] = 1000;
-
-      // 解决-this.$set()
-      // 参数1: 更新目标结构
-      // 参数2: 更新位置
-      // 参数3: 更新值
-      this.$set(this.arr, 0, 1000)
-    }
-  }
+ data() {
+  return {
+    activeFlag: true
+  };
+},
 }
 </script>
