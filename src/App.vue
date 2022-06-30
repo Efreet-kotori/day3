@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <ul>
-      <li v-for="item in myArr" :key="item">{{ item }}</li>
+      <li v-for="(item, ind) in arr" :key="item">
+        <span>{{ item }}</span>
+        <button @click="del(ind)">删除</button>
+      </li>
     </ul>
-    <button @click="btn">走一走</button>
+    <button @click="add">生成</button>
   </div>
 </template>
 
@@ -11,15 +14,15 @@
 export default {
   data() {
     return {
-      myArr: ["帅哥", "美女", "程序猿"],
+      arr: [1, 5, 3],
     };
   },
   methods: {
-    btn() {
-      // 头部数据加入到末尾
-      this.myArr.push(this.myArr[0]);
-      // 再把头部的数据删除掉
-      this.myArr.shift();
+    add() {
+      this.arr.push(Math.floor(Math.random() * 20));
+    },
+    del(index) {
+      this.arr.splice(index, 1);
     },
   },
 };
