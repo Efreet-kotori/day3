@@ -48,18 +48,28 @@
       <form class="form-inline" style="display: flex">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="资产名称" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="资产名称"
+              v-model="name"
+            />
           </div>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <div class="form-group">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="价格" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="价格"
+              v-model.number="price"
+            />
           </div>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <!-- 阻止表单提交 -->
-        <button class="btn btn-primary">添加资产</button>
+        <button class="btn btn-primary" @click.prevent="addFn">添加资产</button>
       </form>
     </div>
   </div>
@@ -80,7 +90,30 @@ export default {
         { id: 102, name: "鞋", price: 25.4, time: new Date("2018-11-22") },
         { id: 103, name: "头发", price: 19900, time: new Date("2020-12-12") },
       ],
+      name: "",
+      price: 0,
     };
+  },
+  methods: {
+    addFn() {
+      // 5. 判断是否为空
+      if (this.name.trim().length == 0 || this.price == 0) {
+        this.name = "";
+        this.price = 0;
+        return alert("请输入完整的信息");
+      }
+      // 3. 把值以对象形式-插入list
+      this.list.push({
+        // 当前数组最后一个对象的id+1作为新对象id值
+        id: this.list[this.list.length - 1].id + 1,
+        name: this.name,
+        price: this.price,
+        time: new Date(),
+      });
+      // 清空输入的值
+      this.name = "";
+      this.price = 0;
+    },
   },
 };
 </script>
